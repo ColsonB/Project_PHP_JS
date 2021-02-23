@@ -6,6 +6,13 @@
     
     if($_SESSION['connect']==true){
 
+    $id = $_SESSION['idUser'];
+
+    include('BDD.php');
+
+    $req = "SELECT pseudo, photoProfil FROM utilisateur WHERE idUser = '$id'";
+    $requetStatement=$BDD->query($req);
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +26,8 @@
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
         <script type="text/javascript" src="src/js/menu.js"></script>
+        <script type="text/javascript" src="src/js/profil.js"></script>
+
     </head>
     
     <body>
@@ -27,9 +36,9 @@
         ?>
         <div class="back">
             <div>
-                <label>
+                <label oninput="range()"> Attaque
                     <span id="value"></span>
-                    <input type="range" id="range" min="0" max="10" list="tickmarks" value="0">
+                    <input type="range" id="range" min="0" max="10" list="tickmarks" value="0" >
                         <datalist id="tickmarks">
                             <option value="0"></option>
                             <option value="1"></option>
@@ -44,28 +53,51 @@
                             <option value="10"></option>
                         </datalist>
                     <span id="value2"></span>
+                    <span id="value3"></span>
                 </label>
-                <span id="value3"></span>
+                
+                <label oninput="range2()"> Défense
+                    <span id="value4"></span>
+                    <input type="range" id="range2" min="0" max="10" list="tickmarks" value="0">
+                        <datalist id="tickmarks">
+                            <option value="0"></option>
+                            <option value="1"></option>
+                            <option value="2"></option>
+                            <option value="3"></option>
+                            <option value="4"></option>
+                            <option value="5"></option>
+                            <option value="6"></option>
+                            <option value="7"></option>
+                            <option value="8"></option>
+                            <option value="9"></option>
+                            <option value="10"></option>
+                        </datalist>
+                     <span id="value5"></span>
+                    <span id="value6"></span>
+                </label>
+
+                <label oninput="range3()"> Vitesse
+                    <span id="value7"></span>
+                    <input type="range" id="range3" min="0" max="10" list="tickmarks" value="0">
+                        <datalist id="tickmarks">
+                            <option value="0"></option>
+                            <option value="1"></option>
+                            <option value="2"></option>
+                            <option value="3"></option>
+                            <option value="4"></option>
+                            <option value="5"></option>
+                            <option value="6"></option>
+                            <option value="7"></option>
+                            <option value="8"></option>
+                            <option value="9"></option>
+                            <option value="10"></option>
+                        </datalist>
+                    <span id="value8"></span>
+                    <span id="value9"></span>
+                </label>
+                
             </div>
-            <script>
-                var slider = document.getElementById("range");
-                var output = document.getElementById("value");
-                var output2 = document.getElementById("value2");
-                var output3 = document.getElementById("value3");
-                output.innerHTML = slider.value;
-                output2.innerHTML = Number(slider.value)+50;
-                output3.innerHTML = 5-Number(slider.value);
-                slider.oninput = function(){
-                    output.innerHTML = this.value;
-                    output2.innerHTML = Number(this.value)+50;
-                    output3.innerHTML = 5-Number(slider.value);
-                    slider.setAttribute('value', this.value);
-                    if(output3.innerHTML<=0){
-                        slider.disabled = true;
-                    }
-                }
-            </script>
-        </div>
+        </div>      
     </body>
 </html>
 <?php
