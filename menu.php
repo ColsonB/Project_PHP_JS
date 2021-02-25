@@ -20,7 +20,7 @@
                 <a href="accueil.php">Accueil</a>
             </li>
             <li>
-                <a href="combat.php">Combat</a>
+                <a href="arene.php">Arène</a>
             </li>
             <li>
                 <a href="classement.php">Classement</a>
