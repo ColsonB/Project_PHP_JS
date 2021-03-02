@@ -36,7 +36,7 @@
         ?>
         <div class="back">
             <div>
-                <label oninput="range()"> Attaque
+            <label oninput="range()"> Attaque
                     <span id="value"></span>
                     <input type="range" id="range" min="0" max="10" list="tickmarks" value="0" >
                         <datalist id="tickmarks">
