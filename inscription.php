@@ -38,7 +38,8 @@
 
          if($valid){
 
-            $req = "INSERT INTO utilisateur (idPerso, photoProfil, pseudo, mdp) VALUES ($idPerso, $photoProfil, $pseudo, $mdp)";
+           $req = $BDD->prepare("INSERT INTO utilisateur ('idPerso', 'photoProfil','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES (idPerso, photoProfil, pseudo, mdp, 0, 0, 0)");
+           $req->execute(array('idPerso' => $idPerso, 'pseudo' => $pseudo, 'photoProfil' => $photoProfil, 'mdp' => $mdp));
 
             header(include('index.php'));
             exit;
@@ -59,8 +60,29 @@
     <body>      
         <div>Inscription</div>
             <form method="post">
+    <?php
+        if(isset($er_pseudo)){
+        ?>
+            <div><?=$er_pseudo?></div>
+        <?php
+        }
+    ?>
                 <input type="text" placeholder="Votre pseudo" name="pseudo" required>
+    <?php
+        if(isset($er_idPerso)){
+        ?>
+            <div><?=$er_idPerso?></div>
+        <?php
+        }
+    ?>
                 <input type="text" placeholder="Choissisez votre personnage" name="idPerso" required>
+    <?php
+        if(isset($er_mdp)){
+        ?>
+            <div><?=$er_mdp?></div>
+        <?php
+        }
+    ?>
                 <input type="file" name="photoProfil" required>
                 <input type="password" placeholder="Mot de passe" name="mdp" required>
                 <input type="password" placeholder="Confirmer le mot de passe" name="confmdp" required>
