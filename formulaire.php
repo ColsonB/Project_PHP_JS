@@ -30,8 +30,10 @@ if (session_status() == PHP_SESSION_NONE) {
                     <input type="text" id="login" name="log" placeholder="Votre login" autocomplete="off" autocapitalize="off" required></input>
                     <input type="password" id="mdp" name="pass" placeholder="Votre mot de passe" autocomplete="off" autocapitalize="off" required></input>
                     <input type="submit" class="submit" value="Ouverture de session"></input>
-                    <input type="button" class="submit" value="Inscription"></input>
                 </form>
+                
+                <a href="inscription.php">Inscription</a>
+
             </div>
         </section>
     </body>
