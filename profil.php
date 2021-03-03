@@ -10,7 +10,7 @@
 
     include('BDD.php');
 
-    $req = "SELECT pseudo, photoProfil FROM utilisateur WHERE idUser = '$id'";
+    $req = "SELECT pseudo FROM utilisateur WHERE idUser = '$id'";
     $requetStatement=$BDD->query($req);
 
 ?>
@@ -35,6 +35,11 @@
             include("menu.php");
         ?>
         <div class="back">
+        
+        <?php
+    
+        ?>
+
             <div>
             <label oninput="range()"> Attaque
                     <span id="value"></span>
@@ -94,9 +99,36 @@
                         </datalist>
                     <span id="value8"></span>
                     <span id="value9"></span>
-                </label>
-                
+                </label>  
             </div>
+            
+            <table>
+                <tr>
+                    <td>Pseudo</td>
+                    <td>Classe</td>
+                    <td>Points</td>
+                    <td>Victoire</td>
+                    <td>Défaite</td>
+                </tr>
+            <?php
+                $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
+                WHERE 
+                    utilisateur.idPerso = personnage.idPerso";
+                $RequetStatement=$BDD->query($req);
+                for($i=1; $Tab=$RequetStatement->fetch(); $i++){
+                    ?>
+                        <tr>
+                            <td><?php echo $Tab[0]; ?></td>
+                            <td><?php echo $Tab[1]; ?></td>
+                            <td><?php echo $Tab[2]; ?></td>
+                            <td><?php echo $Tab[3]; ?></td>
+                            <td><?php echo $Tab[4]; ?></td>
+                        </tr>
+                    <?php
+                }
+            ?> 
+            </table>
+
         </div>      
     </body>
 </html>

@@ -17,6 +17,7 @@ function range(){
                     if(output3.innerHTML<=0){
                         slider.disabled = true;
                     }
+        
     }
 
 }
