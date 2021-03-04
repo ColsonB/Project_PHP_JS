@@ -37,9 +37,10 @@
          }
 
          if($valid){
-
-           $req = $BDD->prepare("INSERT INTO utilisateur ('idPerso', 'photoProfil','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES (idPerso, photoProfil, pseudo, mdp, 0, 0, 0)");
-           $req->execute(array('idPerso' => $idPerso, 'pseudo' => $pseudo, 'photoProfil' => $photoProfil, 'mdp' => $mdp));
+           
+           $pdp = "<img src='src/img/photo_de_profil.png'>";
+           $req = "INSERT INTO utilisateur ('idPerso', 'photoProfil','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES ($idPerso, $pdp, $pseudo, $mdp, 0, 0, 0)";
+           $requetStatement=$BDD->query($req);
 
             header(include('index.php'));
             exit;
@@ -83,7 +84,6 @@
         <?php
         }
     ?>
-                <input type="file" name="photoProfil" required>
                 <input type="password" placeholder="Mot de passe" name="mdp" required>
                 <input type="password" placeholder="Confirmer le mot de passe" name="confmdp" required>
                 <button type="submit" name="inscription">Envoyer</button>
