@@ -13,6 +13,7 @@
 
      if(isset($_POST['inscription'])){
          $pseudo = htmlentities(trim($pseudo));
+         $idPerso = htmlentities(trim($idPerso));
          $mdp = trim($mdp);
          $confmdp =trim($confmdp);
 
@@ -76,7 +77,13 @@
         <?php
         }
     ?>
-                <input type="text" placeholder="Choissisez votre personnage" name="idPerso" required>
+                <select name="idPerso">
+                    <option value="">Choissisez votre personnage</option>
+                    <option vlaue="1">Guerrier</option>
+                    <option value="2">Mage</option>
+                    <option value="3">Eclaireur</option>
+                </select>
+
     <?php
         if(isset($er_mdp)){
         ?>
