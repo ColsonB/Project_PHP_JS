@@ -105,24 +105,26 @@
             <table>
                 <tr>
                     <td>Pseudo</td>
+                    <td>Avatar</td>
                     <td>Classe</td>
                     <td>Points</td>
                     <td>Victoire</td>
                     <td>Défaite</td>
                 </tr>
             <?php
-                $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
-                WHERE 
-                    utilisateur.idPerso = personnage.idPerso";
-                $RequetStatement=$BDD->query($req);
-                for($i=1; $Tab=$RequetStatement->fetch(); $i++){
+
+                $reponse = $BDD->query("SELECT * FROM utilisateur
+                WHERE idUser = '$id'");
+                //$RequetStatement=$BDD->query($req);
+                while($Tab = $reponse->fetch()){
                     ?>
                         <tr>
-                            <td><?php echo $Tab[0]; ?></td>
-                            <td><?php echo $Tab[1]; ?></td>
-                            <td><?php echo $Tab[2]; ?></td>
-                            <td><?php echo $Tab[3]; ?></td>
-                            <td><?php echo $Tab[4]; ?></td>
+                            <td><?php echo $Tab['pseudo']; ?></td>
+                            <td><?php echo $Tab['photoProfil']; ?></td>
+                            <td><?php echo $Tab['idPerso']; ?></td>
+                            <td><?php echo $Tab['point']; ?></td>
+                            <td><?php echo $Tab['victoire']; ?></td>
+                            <td><?php echo $Tab['defaite']; ?></td>
                         </tr>
                     <?php
                 }
