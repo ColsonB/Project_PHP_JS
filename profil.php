@@ -67,8 +67,8 @@
             ?> 
             </table>
 
-            <form method="post" name=photoprofil>
-            <input type="file" required>
+            <form method="post" name="photoprofil">
+            <input type="file" name="img" required>
             <input type="submit">
             </form>
 
@@ -83,22 +83,22 @@
             die;
         }
 
-        $fileType = ".".strtolower(substr(strrchr($_FILES['img']["pseudo"], '.'), 1));
+        $fileType = ".".strtolower(substr(strrchr($_FILES['img']["name"], '.'), 1));
 
-        $_FILES['img']["pseudo"] = $_SESSION['idUser']."_".$_FILES['img']["pseudo"];
+        $_FILES['img']["name"] = $_SESSION['idUser']."_".$_FILES['img']["name"];
         
         if (!in_array($fileType, $valideType)) {
             echo "le fichier sélectionné n'est pas une image";
             die;
         }
-        $tmpName = $_FILES['img']['tmp_pseudo'];
-        $Name = $_FILES['img']['pseudo'];
+        $tmpName = $_FILES['img']['tmp_name'];
+        $Name = $_FILES['img']['name'];
         $fileName = "images/utilisateur/" . $Name;
         $résultUplod = move_uploaded_file($tmpName, $fileName);
         if ($résultUplod) {
             echo "transfere terminer";
         }
-        $update = $BDD->query("UPDATE `utilisateur` SET `photoProfil`='".$_FILES['img']['pseudo']."' WHERE $id =".$_SESSION['idUser']." ");
+        $update = $BDD->query("UPDATE `utilisateur` SET `photoProfil`='".$_FILES['img'][`name`]."' WHERE idUser =".$id." ");
             if($update){
                 echo "votre image a bien été changé";
             }else{  
