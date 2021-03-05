@@ -98,7 +98,7 @@
         if ($résultUplod) {
             echo "transfere terminer";
         }
-        $update = $MaBase->query("UPDATE `utilisateur` SET `photoProfil`='".$_FILES['img']['pseudo']."' WHERE $id =".$_SESSION['idUser']." ");
+        $update = $BDD->query("UPDATE `utilisateur` SET `photoProfil`='".$_FILES['img']['pseudo']."' WHERE $id =".$_SESSION['idUser']." ");
             if($update){
                 echo "votre image a bien été changé";
             }else{  
