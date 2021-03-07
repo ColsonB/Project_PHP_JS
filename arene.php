@@ -94,8 +94,12 @@ include('src/class/combat.php');
                 <?php
                     echo $joueur->pseudo();
                     echo 'Vie : <div id="vie_joueur">'.$joueur->vie().'</div>';
+                    echo 'Attaque : <div id="attaque_joueur">'.$joueur->attaque().'</div>';
+                    echo 'Defense : <div id="defense_joueur">'.$joueur->defense().'</div>';
                     echo $monstre->pseudo();
-                    echo 'Vie : <div id="vie_monstre">'.$monstre->vie().'</div>'
+                    echo 'Vie : <div id="vie_monstre">'.$monstre->vie().'</div>';
+                    echo 'Attaque : <div id="attaque_monstre">'.$monstre->attaque().'</div>';
+                    echo 'Defense : <div id="defense_monstre">'.$monstre->defense().'</div>';
                 ?>
             </div>
             <div>

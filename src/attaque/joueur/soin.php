@@ -2,8 +2,7 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    include('../../BDD.php');
-    include('../class/combat.php');
+    include('../../../BDD.php');
     $joueur = $_SESSION['idUser'];
     $req = "SELECT combatPerso.vie FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
     $RequetStatement=$BDD->query($req);
