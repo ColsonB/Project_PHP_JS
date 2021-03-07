@@ -13,7 +13,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Accueil</title>
+        <title>Classement</title>
         <link rel="icon" type="image/png" href="src/img/.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
@@ -40,7 +40,7 @@
                 WHERE 
                     utilisateur.idPerso = personnage.idPerso 
                 ORDER BY 
-                    utilisateur.point ASC";
+                    utilisateur.point DESC";
                 $RequetStatement=$BDD->query($req);
                 for($i=1; $Tab=$RequetStatement->fetch(); $i++){
                     ?>

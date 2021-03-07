@@ -1,11 +1,22 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     include('../../BDD.php');
-    $joueur = 1;
-    $req = "SELECT personnage.attaque FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$joueur'";
+    $joueur = $_SESSION['idUser'];
+    $req = "SELECT combatPerso.attaque FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $attaque = $Tab[0];
     }
-    $attaque += $attaque; 
+    $attaque = $attaque + $attaque/2;
+    $req = "UPDATE combatperso SET attaque = '$attaque' WHERE combatperso.idCombatPerso = '$joueur'";
+        $RequetStatement=$BDD->query($req);
+    $joueur = $_SESSION['idUser'];
+    $req = "SELECT combatPerso.attaque FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
+    $RequetStatement=$BDD->query($req);
+    while($Tab=$RequetStatement->fetch()){
+        $attaque = $Tab[0];
+    }
     echo $attaque;
 ?>

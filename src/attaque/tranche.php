@@ -1,7 +1,11 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     include('../../BDD.php');
-    $joueur = 1;
-    $req = "SELECT personnage.attaque FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$joueur'";
+    include('../class/combat.php');
+    $joueur = $_SESSION['idUser'];
+    $req = "SELECT combatPerso.attaque FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $attaque = $Tab[0];
@@ -9,9 +13,27 @@
     $tranche = 10;
     $crit = rand(1, 4);
     if($crit == 4){
-        $degat = ($tranche + $attaque)*2;
+        $attaque = ($tranche + $attaque)*2;
     }else{
-        $degat = $tranche + $attaque;
+        $attaque = $tranche + $attaque;
     }
-    echo $degat;
+    $monstre = $_SESSION['idMonstre'];
+    $req = "SELECT vie, defense FROM combatMonstre WHERE idMonstre = '$monstre'";
+    $RequetStatement=$BDD->query($req);
+    while($Tab=$RequetStatement->fetch()){
+        $vie = $Tab[0];
+        $receveur = $Tab[1];
+    }
+    $combat = new Combat($attaque, $receveur);
+    if($combat->degat() < 0){
+        $vie = $vie - 0;
+    }else{
+        $vie = $vie - $combat->degat();
+    }
+    if($vie < 0){
+        $vie = 0;
+    }
+    $req = "UPDATE combatMonstre SET vie='$vie' WHERE combatMonstre.idMonstre = '$monstre'";
+    $RequetStatement=$BDD->query($req);
+    echo $vie;
 ?>
