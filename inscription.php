@@ -6,6 +6,7 @@
      header(include('index.php'));
      exit;
  }
+ 
 
  if(!empty($_POST)){
      extract($_POST);
@@ -39,11 +40,26 @@
          }
 
          if($valid){
+
            
-           $pdp = "<img src='src/img/photo_de_profil.png'>";
+           
            $req = "INSERT INTO utilisateur ('idPerso', 'idCombatPerso','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
            $requetStatement=$BDD->query($req);
 
+           $req = "SELECT MAX(idUser) FROM utilisateur";
+           $requetStatement=$BDD->query($req);
+           
+           while($Tab=$requetStatement->fetch()){
+                $id = $Tab[0];
+            }
+
+            $_FILES['imgprof']["name"] = "joueur".$id.".png";
+        
+            $tmpName = "src/img/joueur/photo_de_profil.png";
+            $Name = $_FILES['imgprof']['name'];
+            $fileName = "src/img/joueur/" . $Name;
+            move_uploaded_file($tmpName, $fileName);
+        
             header(include('index.php'));
             exit;
          }
