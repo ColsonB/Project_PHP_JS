@@ -32,7 +32,9 @@ if (session_status() == PHP_SESSION_NONE) {
                     <input type="submit" class="submit" value="Ouverture de session"></input>
                 </form>
                 
-                <a href="inscription.php">Inscription</a>
+                <form action="inscription.php">
+                    <button type="submit">Inscription</button>
+                </form>
 
             </div>
         </section>
