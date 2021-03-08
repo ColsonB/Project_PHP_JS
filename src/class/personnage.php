@@ -2,26 +2,24 @@
 
     class Personnage {
         //Propriétés
-        private $pseudo;
+        private $nom;
         private $classe;
+        private $vie;
         private $attaque;
         private $defense;
-        private $vitesse;
-        private $vie;
 
         //Méthodes
         //Fonction contruct
-        public function __construct($pseudo, $classe, $vie, $attaque, $defense, $vitesse){
-            $this->pseudo = $pseudo;
+        public function __construct($nom, $classe, $vie, $attaque, $defense){
+            $this->nom = $nom;
             $this->classe = $classe;
             $this->vie = $vie;
             $this->attaque = $attaque;
             $this->defense = $defense;
-            $this->vitesse = $vitesse;
         }
         //Contient la variable pseudo
-        public function pseudo(){
-            return $this->pseudo;
+        public function nom(){
+            return $this->nom;
         }
         //Contient la variable classe
         public function classe(){
@@ -38,10 +36,6 @@
         //Contient la variable defense
         public function defense(){
             return $this->defense;
-        }
-        //Contient la variable vitesse
-        public function vitesse(){
-            return $this->vitesse;
         }
     }
 
