@@ -8,7 +8,7 @@
 
     include('BDD.php');
 
-    $req = "SELECT photoProfil, pseudo FROM utilisateur WHERE idUser = '$id'";
+    $req = "SELECT pseudo FROM utilisateur WHERE idUser = '$id'";
     $requetStatement=$BDD->query($req);
 
 ?>
@@ -31,7 +31,7 @@
                 <button onclick="profilFunction()" class="dropdown-profil-menu">
                     <?php
                         while($Tab=$requetStatement->fetch()){
-                            echo $Tab[1];
+                            echo $Tab[0];
                         }
                     ?>
                     <i class="fas fa-caret-down"></i>

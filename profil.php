@@ -41,7 +41,6 @@
             <table>
                 <tr>
                     <td>Pseudo</td>
-                    <td>Avatar</td>
                     <td>Classe</td>
                     <td>Points</td>
                     <td>Victoire</td>
@@ -56,7 +55,6 @@
                     ?>
                         <tr>
                             <td><?php echo $Tab['pseudo']; ?></td>
-                            <td><?php echo $Tab['photoProfil']; ?></td>
                             <td><?php echo $Tab['idPerso']; ?></td>
                             <td><?php echo $Tab['point']; ?></td>
                             <td><?php echo $Tab['victoire']; ?></td>
@@ -67,42 +65,51 @@
             ?> 
             </table>
 
-            <form method="post" name="photoprofil">
-            <input type="file" name="img" required>
-            <input type="submit">
-            </form>
+        <form enctype="multipart/form-data"  action="" method="post">
 
-            <?php
+                <img class="imgusers" src="src/img/joueur/joueur<?php echo $id; ?>.png">
+            <p>
+                <input type="file" name='imgprof' />
+            </p>
+            <p>
+                <input class="input" type="submit" name='pdpModif' value="Sauvegarder l'image">
+            </p>
+            <p>
+                <input class="input" type="submit" name="point" value="Rénitialiser les points" >
+            </p>
 
-    if (isset($_POST['photoprofil'])) {
+        </form>
 
-        $valideType = array('.jpg', '.jpeg', '.gif', '.png');
-        
-        if ($_FILES['img'] == 0) {
-            echo "aucun dossier selectionné";
-            die;
+        <?php
+
+        if(isset($_POST['point'])){
+            $req = "UPDATE utilisateur SET point=0, victoire=0, defaite=0 WHERE utilisateur.idUser = '$id'";
+            $RequetStatement=$BDD->query($req);
         }
 
-        $fileType = ".".strtolower(substr(strrchr($_FILES['img']["name"], '.'), 1));
+        if (isset($_POST['pdpModif'])) {
 
-        $_FILES['img']["name"] = $_SESSION['idUser']."_".$_FILES['img']["name"];
-        
-        if (!in_array($fileType, $valideType)) {
-            echo "le fichier sélectionné n'est pas une image";
-            die;
-        }
-        $tmpName = $_FILES['img']['tmp_name'];
-        $Name = $_FILES['img']['name'];
-        $fileName = "images/utilisateur/" . $Name;
-        $résultUplod = move_uploaded_file($tmpName, $fileName);
-        if ($résultUplod) {
-            echo "transfere terminer";
-        }
-        $update = $BDD->query("UPDATE `utilisateur` SET `photoProfil`='".$_FILES['img'][`name`]."' WHERE idUser =".$id." ");
-            if($update){
-                echo "votre image a bien été changé";
-            }else{  
-                echo 'une erreur est survenue';
+            $valideType = array('.png');
+            
+            if ($_FILES['imgprof'] == 0) {
+                echo "aucun dossier selectionné";
+                die;
+            }
+
+            $fileType = ".".strtolower(substr(strrchr($_FILES['imgprof']["name"], '.'), 1));
+
+            $_FILES['imgprof']["name"] = "joueur".$_SESSION['idUser'].".png";
+            
+            if (!in_array($fileType, $valideType)) {
+                echo "le fichier sélectionné n'est pas une image";
+                die;
+            }
+            $tmpName = $_FILES['imgprof']['tmp_name'];
+            $Name = $_FILES['imgprof']['name'];
+            $fileName = "src/img/joueur/" . $Name;
+            $résultUplod = move_uploaded_file($tmpName, $fileName);
+            if ($résultUplod) {
+                echo "transfere terminer";
             }
         }
 
