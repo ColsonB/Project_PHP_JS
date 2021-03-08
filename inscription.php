@@ -14,6 +14,7 @@
      if(isset($_POST['inscription'])){
          $pseudo = htmlentities(trim($pseudo));
          $idPerso = htmlentities(trim($idPerso));
+         $idCombatPerso = htmlentities(trim($idCombatPerso));
          $mdp = trim($mdp);
          $confmdp =trim($confmdp);
 
@@ -40,7 +41,7 @@
          if($valid){
            
            $pdp = "<img src='src/img/photo_de_profil.png'>";
-           $req = "INSERT INTO utilisateur ('idPerso', 'photoProfil','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES ($idPerso, $pdp, $pseudo, $mdp, 0, 0, 0)";
+           $req = "INSERT INTO utilisateur ('idPerso', 'idCombatPerso','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
            $requetStatement=$BDD->query($req);
 
             header(include('index.php'));
