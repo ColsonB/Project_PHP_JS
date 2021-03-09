@@ -7,7 +7,7 @@
     $vie_joueur = $_SESSION['vie_joueur'];
     $attaque_joueur = $_SESSION['attaque_joueur']; 
     $defense_joueur = $_SESSION['defense_joueur'];
-    $req = "SELECT combatPerso.vie FROM combatPerso, utilisateur WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
+    $req = "SELECT combatperso.vie FROM combatperso, utilisateur WHERE utilisateur.idCombatPerso = combatperso.idCombatPerso AND utilisateur.idUser = '$joueur'";
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $vieJoueur = $Tab[0];
@@ -16,7 +16,7 @@
     $vie_monstre = $_SESSION['vie_monstre'];
     $attaque_monstre = $_SESSION['attaque_monstre']; 
     $defense_monstre = $_SESSION['defense_monstre'];
-    $req = "SELECT vie FROM combatMonstre WHERE idMonstre = '$monstre'";
+    $req = "SELECT vie FROM combatmonstre WHERE idMonstre = '$monstre'";
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $vieMonstre = $Tab[0];
@@ -44,9 +44,9 @@
         $RequetStatement=$BDD->query($req);
     }
     if($vieJoueur <= 0 || $vieMonstre <= 0){
-        $req = "UPDATE combatPerso SET vie='$vie_joueur', attaque='$attaque_joueur', defense='$defense_joueur' WHERE combatPerso.idCombatPerso = '$joueur'";
+        $req = "UPDATE combatperso SET vie='$vie_joueur', attaque='$attaque_joueur', defense='$defense_joueur' WHERE combatperso.idCombatPerso = '$joueur'";
         $RequetStatement=$BDD->query($req);
-        $req = "UPDATE combatMonstre SET vie='$vie_monstre', attaque='$attaque_monstre', defense='$defense_monstre' WHERE combatMonstre.idMonstre = '$monstre'";
+        $req = "UPDATE combatmonstre SET vie='$vie_monstre', attaque='$attaque_monstre', defense='$defense_monstre' WHERE combatmonstre.idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
         echo 0;
     }else{

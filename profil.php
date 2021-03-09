@@ -1,18 +1,37 @@
 <?php
     
+    include('BDD.php');
+
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
     
     if($_SESSION['connect']==true){
 
-    $id = $_SESSION['idUser'];
+        $id = $_SESSION['idUser'];
+        $req = "SELECT utilisateur.pseudo, personnage.classe, personnage.vie, personnage.attaque, personnage.defense, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$id'";
+        $RequetStatement=$BDD->query($req);
+        while($Tab=$RequetStatement->fetch()){
+            $pseudo = $Tab[0]; 
+            $classe = $Tab[1]; 
+            $vie = $Tab[2]; 
+            $defense = $Tab[3]; 
+            $attaque = $Tab[4]; 
+            $point = $Tab[5]; 
+            $victoire = $Tab[6];
+            $defaite = $Tab[7]; 
+        }
 
-    include('BDD.php');
-
-    $req = "SELECT pseudo FROM utilisateur WHERE idUser = '$id'";
-    $requetStatement=$BDD->query($req);
-
+        if(isset($_POST['pdp_modif'])){
+            $fileType = ".".strtolower(substr(strrchr($_FILES['img_profil']["name"], '.'), 1));
+            $_FILES['img_profil']["name"] = "joueur".$id.".png";
+            $tmpName = $_FILES['img_profil']['tmp_name'];
+            $Name = $_FILES['img_profil']['name'];
+            $fileName = "src/img/joueur/".$Name;
+            move_uploaded_file($tmpName, $fileName);
+            echo "<meta http-equiv='refresh' content='0'";
+        }
+        
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +41,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Profil</title>
-        <link rel="icon" type="image/png" href="src/img/.png">
+        <link rel="icon" type="image/png" href="src/img/icone.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
+        <link rel='stylesheet' type='text/css' href='src/css/profil.css'>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
         <script type="text/javascript" src="src/js/menu.js"></script>
-        <script type="text/javascript" src="src/js/profil.js"></script>
     </head>
     
     <body>
@@ -37,85 +56,53 @@
         ?>
 
         <div class="back">
-          
-            <table>
-                <tr>
-                    <td>Pseudo</td>
-                    <td>Classe</td>
-                    <td>Points</td>
-                    <td>Victoire</td>
-                    <td>Défaite</td>
-                </tr>
-            <?php
-
-                $reponse = $BDD->query("SELECT * FROM utilisateur
-                WHERE idUser = '$id'");
-
-                while($Tab = $reponse->fetch()){
-                    ?>
-                        <tr>
-                            <td><?php echo $Tab['pseudo']; ?></td>
-                            <td><?php echo $Tab['idPerso']; ?></td>
-                            <td><?php echo $Tab['point']; ?></td>
-                            <td><?php echo $Tab['victoire']; ?></td>
-                            <td><?php echo $Tab['defaite']; ?></td>
-                        </tr>
-                    <?php
-                }
-            ?> 
-            </table>
-
-        <form enctype="multipart/form-data"  action="" method="post">
-
-                <img class="imgusers" src="src/img/joueur/joueur<?php echo $id; ?>.png">
-            <p>
-                <input type="file" name='imgprof' />
-            </p>
-            <p>
-                <input class="input" type="submit" name='pdpModif' value="Sauvegarder l'image">
-            </p>
-            <p>
-                <input class="input" type="submit" name="point" value="Rénitialiser les points" >
-            </p>
-
-        </form>
-
-        <?php
-
-        if(isset($_POST['point'])){
-            $req = "UPDATE utilisateur SET point=0, victoire=0, defaite=0 WHERE utilisateur.idUser = '$id'";
-            $RequetStatement=$BDD->query($req);
-        }
-
-        if (isset($_POST['pdpModif'])) {
-
-            $valideType = array('.png');
-            
-            if ($_FILES['imgprof'] == 0) {
-                echo "aucun dossier selectionné";
-                die;
-            }
-
-            $fileType = ".".strtolower(substr(strrchr($_FILES['imgprof']["name"], '.'), 1));
-
-            $_FILES['imgprof']["name"] = "joueur".$_SESSION['idUser'].".png";
-            
-            if (!in_array($fileType, $valideType)) {
-                echo "le fichier sélectionné n'est pas une image";
-                die;
-            }
-            $tmpName = $_FILES['imgprof']['tmp_name'];
-            $Name = $_FILES['imgprof']['name'];
-            $fileName = "src/img/joueur/" . $Name;
-            $résultUplod = move_uploaded_file($tmpName, $fileName);
-            if ($résultUplod) {
-                echo "transfere terminer";
-            }
-        }
-
-            ?>
-
-        </div>      
+            <h1>Profil</h1>
+            <div class="profil">
+                <img class="img_joueur" src="src/img/joueur/joueur<?php echo $id; ?>.png">
+                <div class="boutton">
+                    <form enctype="multipart/form-data" method='post'>
+                        <p><input type="file" id="img_profil" name="img_profil"></p>
+                        <p>Selectionnez un fichier en ".png"</p>
+                        <p><input type="submit" id="pdp_modif" name="pdp_modif" class="phpModif" value="Sauvegarder l'image"></p>
+                    </form>
+                </div>
+                <div class="info_profil">
+                    <h2>Pseudo : <?php echo $pseudo; ?></h2>
+                    <p class="classe">Classe : <?php echo $classe; ?></p>
+                </div>
+                <h2>Statistiques</h2>
+                <table>
+                    <tr>
+                        <th>Vie</th>
+                        <th>Attaque</th>
+                        <th>Défense</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $vie;?></td>
+                        <td><?php echo $attaque; ?></td>
+                        <td><?php echo $defense; ?></td>
+                    </tr>
+                </table>
+                <h2>Points</h2>
+                <div class="boutton">
+                    <input class="point" type="submit" id="reset_point" value="Rénitialiser les points" >
+                    <input class="point" type="submit" id="reset_confirm" value="Confirmer" >
+                    <input class="point" type="submit" id="reset_cancel" value="Annuler" >
+                </div>
+                <table>
+                    <tr>
+                        <th>Points</th>
+                        <th>Victoire</th>
+                        <th>Défaite</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $point;?></td>
+                        <td><?php echo $victoire; ?></td>
+                        <td><?php echo $defaite; ?></td>
+                    </tr>
+                </table>
+            </div>
+        <script type="text/javascript" src="src/js/profil.js"></script>    
     </body>
 </html>
 <?php

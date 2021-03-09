@@ -49,6 +49,8 @@ h2{
 
 .img_joueur{
     position: relative;
+    width: 200px;
+    height: 200px;
     border: 1px solid;
     border-color: #202225;
     border-radius: 5px;
@@ -56,6 +58,8 @@ h2{
 
 .img_monstre{
     position: relative;
+    width: 200px;
+    height: 200px;
     border: 1px solid;
     border-color: #202225;
     border-radius: 5px;

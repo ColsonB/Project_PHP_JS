@@ -1,8 +1,8 @@
 <?php
 
-include('BDD.php');
-include('src/class/personnage.php');
-include('src/class/combat.php');
+    include('BDD.php');
+    include('src/class/personnage.php');
+    include('src/class/combat.php');
     
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -13,15 +13,17 @@ include('src/class/combat.php');
         $joueur = $_SESSION['idUser'];
         $req = "SELECT personnage.vie, personnage.attaque, personnage.defense FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$joueur'";
         $RequetStatement=$BDD->query($req);
+       
         while($Tab=$RequetStatement->fetch()){
             $vie_joueur = $Tab[0]; 
             $attaque_joueur = $Tab[1]; 
             $defense_joueur = $Tab[2]; 
         }
+
         $req = "UPDATE combatPerso SET vie='$vie_joueur', attaque='$attaque_joueur', defense='$defense_joueur' WHERE combatPerso.idCombatPerso = '$joueur'";
         $RequetStatement=$BDD->query($req);
 
-        $req = "SELECT utilisateur.pseudo, combatPerso.classe, combatPerso.vie, combatPerso.attaque, combatPerso.defense FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
+        $req = "SELECT utilisateur.pseudo, combatperso.classe, combatperso.vie, combatperso.attaque, combatperso.defense FROM utilisateur, combatperso WHERE utilisateur.idCombatPerso = combatperso.idCombatPerso AND utilisateur.idUser = '$joueur'";       
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
             $Tab[0]; 
@@ -44,7 +46,7 @@ include('src/class/combat.php');
         $req = "UPDATE combatMonstre SET vie='$vie_monstre', attaque='$attaque_monstre', defense='$defense_monstre' WHERE combatMonstre.idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
 
-        $req = "SELECT nom, classe, vie, attaque, defense FROM combatMonstre WHERE idMonstre = '$monstre'";
+        $req = "SELECT nom, classe, vie, attaque, defense FROM combatmonstre WHERE idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
             $Tab[0]; 
@@ -90,7 +92,7 @@ include('src/class/combat.php');
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Arène</title>
-        <link rel="icon" type="image/png" href="src/img/.png">
+        <link rel="icon" type="image/png" href="src/img/icone.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
         <link rel='stylesheet' type='text/css' href='src/css/arene.css'>
@@ -117,7 +119,7 @@ include('src/class/combat.php');
             <div class="combat_fond">
                 <table class="combat_interface">
                     <tr>
-                        <td colspan="2"><img src="src/img/joueur/joueur<?php echo $_SESSION['idUser']; ?>.png"class="img_joueur"></td>
+                        <td colspan="2"><img src="src/img/joueur/joueur<?php echo $_SESSION['idUser']; ?>.png" class="img_joueur"></td>
                         <td colspan="2"><img src="src/img/monstre/monstre<?php echo $_SESSION['idMonstre']; ?>.png" class="img_monstre"></td>
                     </tr>
                     <tr>

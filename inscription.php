@@ -1,116 +1,80 @@
 <?php
 
- include('BDD.php');
+    include('BDD.php');
 
- if(isset($_SESSION['id'])){
-     header(include('index.php'));
-     exit;
- }
- 
+    if(!empty($_POST)){
+        extract($_POST);
+        $valid = true;
+        if(isset($_POST['inscription'])){
+            $idPerso = $_POST['idPerso'];
+            $pseudo = $_POST['pseudo'];
+            $mdp = $_POST['mdp'];
+            $confmdp = $_POST['confmdp'];
 
- if(!empty($_POST)){
-     extract($_POST);
-     $valid = true;
+            $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
+            $requetStatement=$BDD->query($req);
 
-     if(isset($_POST['inscription'])){
-         $pseudo = htmlentities(trim($pseudo));
-         $idPerso = htmlentities(trim($idPerso));
-         $idCombatPerso = htmlentities(trim($idCombatPerso));
-         $mdp = trim($mdp);
-         $confmdp =trim($confmdp);
-
-         if(empty($pseudo)){
-             $valid = false;
-             $er_pseudo = ("Le pseudo ne peut pas être vide");
-         }
-
-         if(empty($idPerso)){
-             $valid = false;
-             $er_idPerso = ("Personnage non trouvé");
-         }
-
-         if(empty($mdp)){
-             $valid = false;
-             $er_mdp = "Le mot de passe ne peut pas être vide";
-         }
-
-         elseif($mdp != $confmdp){
-             $valid = false;
-             $er_mdp = "Le mot de passe ne correspond pas";
-         }
-
-         if($valid){
-
-           
-           
-           $req = "INSERT INTO utilisateur ('idPerso', 'idCombatPerso','pseudo' 'mdp', 'point', 'victoire', 'defaite') VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
-           $requetStatement=$BDD->query($req);
-
-           $req = "SELECT MAX(idUser) FROM utilisateur";
-           $requetStatement=$BDD->query($req);
-           
-           while($Tab=$requetStatement->fetch()){
-                $id = $Tab[0];
-            }
-
-            $_FILES['imgprof']["name"] = "joueur".$id.".png";
-        
-            $tmpName = "src/img/joueur/photo_de_profil.png";
-            $Name = $_FILES['imgprof']['name'];
-            $fileName = "src/img/joueur/" . $Name;
-            move_uploaded_file($tmpName, $fileName);
-        
-            header(include('index.php'));
-            exit;
-         }
-     }
- }
+            $req = "SELECT MAX(idUser) FROM utilisateur";
+                $requetStatement=$BDD->query($req);                               
+                while($Tab=$requetStatement->fetch()){
+                        $id = $Tab[0];
+                }
+                $_FILES['imgprof']["name"] = "joueur".$id.".png";
+                $tmpName = "src/img/joueur/photo_de_profil.png";
+                $Name = $_FILES['imgprof']['name'];
+                $fileName = "src/img/joueur/" . $Name;
+                copy($tmpName, $fileName);
+                include('connexion.php');
+        }
+    }
 ?>
 
-<html>
-    
+<!DOCTYPE html>
+<html lang="fr">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Inscription</title>
-    </head>
-    
-    <body>      
-        <div>Inscription</div>
-            <form method="post">
-    <?php
-        if(isset($er_pseudo)){
-        ?>
-            <div><?=$er_pseudo?></div>
-        <?php
-        }
-    ?>
-                <input type="text" placeholder="Votre pseudo" name="pseudo" required>
-    <?php
-        if(isset($er_idPerso)){
-        ?>
-            <div><?=$er_idPerso?></div>
-        <?php
-        }
-    ?>
-                <select name="idPerso">
-                    <option value="">Choissisez votre personnage</option>
-                    <option vlaue="1">Guerrier</option>
-                    <option value="2">Mage</option>
-                    <option value="3">Eclaireur</option>
-                </select>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Inscription</title>
+        <link rel="icon" type="image/png" href="src/img/icone.png">
+        <link rel='stylesheet' type='text/css' href='src/css/page.css'>
+        <link rel='stylesheet' type='text/css' href='src/css/inscription.css'>
+    </head>
 
-    <?php
-        if(isset($er_mdp)){
-        ?>
-            <div><?=$er_mdp?></div>
-        <?php
-        }
-    ?>
-                <input type="password" placeholder="Mot de passe" name="mdp" required>
-                <input type="password" placeholder="Confirmer le mot de passe" name="confmdp" required>
-                <button type="submit" name="inscription">Envoyer</button>
-            </form>
-     </body>
+    <body>
+        <h1>Inscription</h1>
+        <div class="form">
+            <form method="post">
+                <div class="perso">
+                    <input type="text" id="pseudo" name="pseudo" placeholder="Votre pseudo" required>
+                    <select id="classe" name="idPerso" require>
+                        <option value="">Choissisez votre classe</option>
+                        <option vlaue="1">Guerrier</option>
+                        <option value="2">Mage</option>
+                        <option value="3">Eclaireur</option>
+                    </select>
+                </div>
+                <?php
+                    if(isset($_POST['inscription'])){
+                        if($mdp != $confmdp){
+                            ?>
+                                <div class="erreur_mdp">
+                                    <p>Veuillez saisir le même mot de passe</p>
+                                </div>
+                            <?php
+                        }
+                    }
+                ?>
+                <div class="mdp">
+                    <input type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
+                </div>
+                <div class="confmdp">
+                    <input type="password" id="confmdp" name="confmdp" placeholder="Confirmer le mot de passe" required>
+                </div>
+                <div class="submit">
+                    <input type="submit" id="inscription" name="inscription" value="Creer le personnage">
+                </div>
+            </form>
+        </div>
+    </body>
 </html>

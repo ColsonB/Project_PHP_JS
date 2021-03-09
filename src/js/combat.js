@@ -23,13 +23,13 @@ start.addEventListener('click', function() {
     }
     var time = setInterval(function(){
         try{
-            fetch('src/degat/etat_combat.php', {
+            fetch('src/autre/etat_combat.php', {
                 method: 'post'
             }).then(function(response){
                 return response.json();        
             }).then(function (data){
                 var obj = {"combat": data};
-                console.log(JSON.parse(JSON.stringify(obj)))
+                console.log(JSON.parse(JSON.stringify(obj)));
                 if(data == 0){
                     arret();
                 };
