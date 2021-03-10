@@ -2,30 +2,35 @@
 
     include('BDD.php');
 
-    if(!empty($_POST)){ 
+    if(!empty($_POST)){
         extract($_POST);
         $valid = true;
-        if(isset($_POST['inscription'])){ // On récupére les informations du formulaire
-            $idPerso = $_POST['idPerso'];
-            $pseudo = $_POST['pseudo'];
-            $mdp = $_POST['mdp'];
-            $confmdp = $_POST['confmdp'];
+        //On récupére les informations du formulaire
+        if(isset($_POST['inscription'])){
+            if($mdp == $confmdp){
+                $idPerso = $_POST['idPerso'];
+                $pseudo = $_POST['pseudo'];
+                $mdp = $_POST['mdp'];
+                $confmdp = $_POST['confmdp'];
+                
+                //On insére les informations du formulaire dans la BDD
+                $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
+                $requetStatement=$BDD->query($req);
 
-            $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) 
-            VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)"; // On insére les informations du formulaire dans la BDD
-            $requetStatement=$BDD->query($req);
-
-            $req = "SELECT MAX(idUser) FROM utilisateur"; // Permet de récupérer l'id le plus grand dans la BDD
+                //Permet de récupérer l'id le plus grand dans la BDD
+                $req = "SELECT MAX(idUser) FROM utilisateur";
                 $requetStatement=$BDD->query($req);                               
                 while($Tab=$requetStatement->fetch()){
                         $id = $Tab[0];
                 }
-                $_FILES['imgprof']["name"] = "joueur".$id.".png"; // Permet de mettre une photo de profil par défaut
+
+                // Permet de mettre une photo de profil par défaut
+                $_FILES['imgprof']["name"] = "joueur".$id.".png";
                 $tmpName = "src/img/joueur/photo_de_profil.png";
                 $Name = $_FILES['imgprof']['name'];
                 $fileName = "src/img/joueur/" . $Name;
                 copy($tmpName, $fileName);
-                include('connexion.php');
+            }
         }
     }
 ?>
@@ -56,7 +61,8 @@
                     </select>
                 </div>
                 <?php
-                    if(isset($_POST['inscription'])){ // Si le mot de passe est incorrect on envoie un message
+                    if(isset($_POST['inscription'])){
+                        //Si le mot de passe est incorrect on envoie un message
                         if($mdp != $confmdp){
                             ?>
                                 <div class="erreur_mdp">
@@ -76,6 +82,11 @@
                     <input type="submit" id="inscription" name="inscription" value="Creer le personnage">
                 </div>
             </form>
+        </div>
+        <div class="connexion">
+            <a href="connexion.php">
+                <button id="connexion">Connecte-toi</button>
+            </a>
         </div>
     </body>
 </html>

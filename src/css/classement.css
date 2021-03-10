@@ -49,3 +49,9 @@ table td{
     margin-left: auto;
     margin-right: auto;
 }
+
+@media screen and (max-width: 800px) {
+    .classement{
+        width: 90%;
+    }
+} 

@@ -4,8 +4,9 @@
     }
     include('../../../BDD.php');
     $joueur = $_SESSION['idUser'];
-    $req = "SELECT combatPerso.vie FROM utilisateur, combatPerso 
-    WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'"; // On récupére la vie de l'utilisateur dans la BDD
+
+    //On récupére la vie de l'utilisateur dans la BDD
+    $req = "SELECT combatperso.vie FROM utilisateur, combatperso WHERE utilisateur.idCombatPerso = combatperso.idCombatPerso AND utilisateur.idUser = '$joueur'";
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $vie = $Tab[0];
@@ -16,7 +17,10 @@
     if($vie_joueur < $vie){
         $vie = $vie_joueur;
     }
-    $req = "UPDATE combatperso SET vie = '$vie' WHERE combatperso.idCombatPerso = '$joueur'"; // On met à jour la vie de l'utilisateur dans la BDD
+
+    //On met à jour la vie de l'utilisateur dans la BDD
+    $req = "UPDATE combatperso SET vie = '$vie' WHERE combatperso.idCombatPerso = '$joueur'";
     $RequetStatement=$BDD->query($req);
+    
     echo $vie;
 ?>

@@ -61,24 +61,63 @@
             if($joueur->classe()=='Guerrier'){
                 ?>                    
                     <input type="submit" id="tranche" class="boutonAttaque" value="Tranche">
+                    <div id="tranche_description" class="attaque_description">
+                        <p>Tranche</p>
+                        <p>Puissance : 10</p>
+                        <p>Fait des dégats à l'adversaire. A 25% de chance de faire un coup critique.</p>
+                    </div>
                     <input type="submit" id="boost" class="boutonAttaque" value="Boost">
+                    <div id="boost_description" class="attaque_description">
+                        <p>Boost</p>
+                        <p>Augmente la statistique d'attaque du lanceur de 50%.</p>
+                    </div>
                     <input type="submit" id="soin" class="boutonAttaque" value="Soin">
+                    <div id="soin_description" class="attaque_description">
+                        <p>Soin</p>
+                        <p>Soigne le lanceur de 10 points de vie.</p>
+                    </div>
                     <script type="text/javascript" src="src/js/classe/guerrier.js"></script>
                 <?php
             }
             if($joueur->classe()=='Mage'){
                 ?>
                     <input type="submit" id="sort" class="boutonAttaque" value="Sort">
+                    <div id="sort_description" class="attaque_description">
+                        <p>Sort</p>
+                        <p>Puissance : 10</p>
+                        <p>Fait des dégats à l'adversaire. A 25% de chance de faire un coup critique.</p>
+                    </div>
                     <input type="submit" id="boost" class="boutonAttaque" value="Boost">
+                    <div id="boost_description" class="attaque_description">
+                        <p>Boost</p>
+                        <p>Augmente la statistique d'attaque du lanceur de 50%.</p>
+                    </div>
                     <input type="submit" id="soin" class="boutonAttaque" value="Soin">
+                    <div id="soin_description" class="attaque_description">
+                        <p>Soin</p>
+                        <p>Soigne le lanceur de 10 points de vie.</p>
+                    </div>
                     <script type="text/javascript" src="src/js/classe/mage.js"></script>
                 <?php
             }
             if($joueur->classe()=='Eclaireur'){
                 ?>
                     <input type="submit" id="tir" class="boutonAttaque" value="Tir">
+                    <div id="tir_description" class="attaque_description">
+                        <p>Tir</p>
+                        <p>Puissance : 10</p>
+                        <p>Fait des dégats à l'adversaire. A 25% de chance faire un de coup critique.</p>
+                    </div>
                     <input type="submit" id="boost" class="boutonAttaque" value="Boost">
+                    <div id="boost_description" class="attaque_description">
+                        <p>Boost</p>
+                        <p>Augmente la statistique d'attaque du lanceur de 50%.</p>
+                    </div>
                     <input type="submit" id="soin" class="boutonAttaque" value="Soin">
+                    <div id="soin_description" class="attaque_description">
+                        <p>Soin</p>
+                        <p>Soigne le lanceur de 10 points de vie.</p>
+                    </div>
                     <script type="text/javascript" src="src/js/classe/eclaireur.js"></script>
                 <?php
             }

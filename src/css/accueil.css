@@ -38,7 +38,7 @@ table td{
     border-color: white;
 }
 
-.regle{
+.regle, .hero, .bestiaire{
     position: relative;
     background-color: #2F3136;
     border: 1px solid;
@@ -51,28 +51,8 @@ table td{
     margin-right: auto;
 }
 
-.hero{
-    position: relative;
-    background-color: #2F3136;
-    border: 1px solid;
-    border-color: #202225;
-    border-radius: 5px;
-    width: 70%;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.bestiaire{
-    position: relative;
-    background-color: #2F3136;
-    border: 1px solid;
-    border-color: #202225;
-    border-radius: 5px;
-    width: 70%;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    margin-left: auto;
-    margin-right: auto;
+@media screen and (max-width: 800px) {
+    .regle, .hero, .bestiaire{
+        width: 90%;
+    }
 }

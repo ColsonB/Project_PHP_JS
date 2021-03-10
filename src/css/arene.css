@@ -73,3 +73,57 @@ h2{
     margin-left: auto;
     margin-right: auto;
 }
+
+.attaque_description{
+    position: absolute;
+    text-align: left;
+    width: auto;
+    height: 160px;
+    top: -90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2F3136;
+    border: 1px solid;
+    border-color: #202225;
+    border-radius: 5px;
+}
+
+.attaque_description p{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+@media screen and (max-width: 1250px) {
+    .combat_interface{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .combat_fond{
+        width: 90%;
+    }
+
+    .img_joueur{
+        width: 100px;
+        height: 100px;
+    }
+
+    .img_monstre{
+        width: 100px;
+        height: 100px;
+    }
+
+    .attaque{
+        width: 90%;
+    }
+
+    .attaque input{
+        width: 100px;
+    }
+
+    .attaque_description{
+        width: 70%;
+    }
+}

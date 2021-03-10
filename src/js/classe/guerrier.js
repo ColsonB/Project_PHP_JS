@@ -1,6 +1,7 @@
 /*-- Attaque Guerrier --*/
 //-- Attaque Tranche --//
 var tranche = document.getElementById('tranche');
+document.getElementById('tranche_description').hidden = true;
 tranche.addEventListener('click', function() {
     try{
         fetch('src/attaque/joueur/tranche.php', {
@@ -16,8 +17,16 @@ tranche.addEventListener('click', function() {
         console.error(error);
     }
 });
+tranche.addEventListener('mouseover', function() {
+    document.getElementById('tranche_description').hidden = false;
+});
+tranche.addEventListener('mouseout', function() {
+    document.getElementById('tranche_description').hidden = true;
+});
+
 //-- Attaque Boost --//
 var boost = document.getElementById('boost');
+document.getElementById('boost_description').hidden = true;
 boost.addEventListener('click', function() {
     try{
         fetch('src/attaque/joueur/boost.php', {
@@ -33,8 +42,16 @@ boost.addEventListener('click', function() {
         console.error(error);
     }
 });
+boost.addEventListener('mouseover', function() {
+    document.getElementById('boost_description').hidden = false;
+});
+boost.addEventListener('mouseout', function() {
+    document.getElementById('boost_description').hidden = true;
+});
+
 //-- Attaque Soin --//
 var soin = document.getElementById('soin');
+document.getElementById('soin_description').hidden = true;
 soin.addEventListener('click', function() {
     try{
         fetch('src/attaque/joueur/soin.php', {
@@ -49,4 +66,10 @@ soin.addEventListener('click', function() {
     }catch (error){
         console.error(error);
     }
+});
+soin.addEventListener('mouseover', function() {
+    document.getElementById('soin_description').hidden = false;
+});
+soin.addEventListener('mouseout', function() {
+    document.getElementById('soin_description').hidden = true;
 });

@@ -1,6 +1,7 @@
 /*-- Attaque Mage --*/
 //-- Attaque Sort --//
 var sort = document.getElementById('sort');
+document.getElementById('sort_description').hidden = true;
 sort.addEventListener('click', function() {
     try{
         fetch('src/attaque/sort.php', {
@@ -16,6 +17,13 @@ sort.addEventListener('click', function() {
         console.error(error);
     }
 });
+sort.addEventListener('mouseover', function() {
+    document.getElementById('sort_description').hidden = false;
+});
+sort.addEventListener('mouseout', function() {
+    document.getElementById('sort_description').hidden = true;
+});
+
 //-- Attaque Boost --//
 var boost = document.getElementById('boost');
 boost.addEventListener('click', function() {
@@ -33,8 +41,16 @@ boost.addEventListener('click', function() {
         console.error(error);
     }
 });
+boost.addEventListener('mouseover', function() {
+    document.getElementById('boost_description').hidden = false;
+});
+boost.addEventListener('mouseout', function() {
+    document.getElementById('boost_description').hidden = true;
+});
+
 //-- Attaque Soin --//
 var soin = document.getElementById('soin');
+document.getElementById('soin_description').hidden = true;
 soin.addEventListener('click', function() {
     try{
         fetch('src/attaque/joueur/soin.php', {
@@ -49,4 +65,10 @@ soin.addEventListener('click', function() {
     }catch (error){
         console.error(error);
     }
+});
+soin.addEventListener('mouseover', function() {
+    document.getElementById('soin_description').hidden = false;
+});
+soin.addEventListener('mouseout', function() {
+    document.getElementById('soin_description').hidden = true;
 });

@@ -3,8 +3,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    
-    if($_SESSION['connect']==true){
 
 ?>
 
@@ -14,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Classement</title>
-        <link rel="icon" type="image/png" href="src/img/.png">
+        <link rel="icon" type="image/png" href="src/img/icone.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
         <link rel='stylesheet' type='text/css' href='src/css/classement.css'>
@@ -39,33 +37,29 @@
                         <th>Victoire</th>
                         <th>Défaite</th>
                     </tr>
-                <?php
-                    $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
-                    WHERE 
-                        utilisateur.idPerso = personnage.idPerso
-                    ORDER BY 
-                        utilisateur.point DESC"; // On récupére les informations de l'utilisateur dans la BDD pour les afficher dans un tableau
-                    $RequetStatement=$BDD->query($req);
-                    for($i=1; $Tab=$RequetStatement->fetch(); $i++){
-                        ?>
-                            <tr>
-                                <td><?php echo $i; ?></td>
-                                <td><?php echo $Tab[0]; ?></td>
-                                <td><?php echo $Tab[1]; ?></td>
-                                <td><?php echo $Tab[2]; ?></td>
-                                <td><?php echo $Tab[3]; ?></td>
-                                <td><?php echo $Tab[4]; ?></td>
-                            </tr>
-                        <?php
-                    }
-                ?> 
+                    <?php
+                        //On récupére les informations de l'utilisateur dans la BDD pour les afficher dans un tableau
+                        $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
+                        WHERE 
+                            utilisateur.idPerso = personnage.idPerso 
+                        ORDER BY 
+                            utilisateur.point DESC";
+                        $RequetStatement=$BDD->query($req);
+                        for($i=1; $Tab=$RequetStatement->fetch(); $i++){
+                            ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $Tab[0]; ?></td>
+                                    <td><?php echo $Tab[1]; ?></td>
+                                    <td><?php echo $Tab[2]; ?></td>
+                                    <td><?php echo $Tab[3]; ?></td>
+                                    <td><?php echo $Tab[4]; ?></td>
+                                </tr>
+                            <?php
+                        }
+                    ?> 
                 </table>   
             </div>
         </div>
     </body>
 </html>
-<?php
-    }else{
-        include('formulaire.php');
-    }
-?>

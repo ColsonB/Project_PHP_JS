@@ -3,8 +3,6 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    
-    if($_SESSION['connect']==true){
 
 ?>
 
@@ -14,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accueil</title>
-        <link rel="icon" type="image/png" href="src/img/.png">
+        <link rel="icon" type="image/png" href="src/img/icone.png">
         <link rel='stylesheet' type='text/css' href='src/css/menu.css'>
         <link rel='stylesheet' type='text/css' href='src/css/page.css'>
         <link rel='stylesheet' type='text/css' href='src/css/accueil.css'>
@@ -48,7 +46,8 @@
                         <th>Défense</th>
                     </tr>
                 <?php
-                    $req = "SELECT classe, vie, attaque, defense FROM personnage WHERE 1"; // On récupére la table personnage dans la BDD pour l'afficher dans un tableau
+                    //On récupére la table personnage dans la BDD pour l'afficher dans un tableau
+                    $req = "SELECT classe, vie, attaque, defense FROM personnage WHERE 1";
                     $RequetStatement=$BDD->query($req);
                     while($Tab=$RequetStatement->fetch()){
                         ?>
@@ -76,7 +75,8 @@
                         <th>Défense</th>
                     </tr>
                 <?php
-                    $req = "SELECT nom, vie, attaque, defense FROM monstre WHERE 1 ORDER BY nom"; // On récupére la table monstre dans la BDD est on l'affiche dans un tableau
+                    //On récupére la table monstre dans la BDD est on l'affiche dans un tableau
+                    $req = "SELECT nom, vie, attaque, defense FROM monstre WHERE 1 ORDER BY nom";
                     $RequetStatement=$BDD->query($req);
                     while($Tab=$RequetStatement->fetch()){
                         ?>
@@ -94,8 +94,3 @@
         </div>
     </body>
 </html>
-<?php
-    }else{
-        include('formulaire.php');
-    }
-?>

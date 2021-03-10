@@ -29,7 +29,8 @@
                 ?>
                     <button onclick="profilFunction()" class="dropdown-profil-menu">
                         <?php
-                            $req = "SELECT pseudo FROM utilisateur WHERE idUser = '$id'"; // On récupére l'id de l'utilisateur dans la BDD pour afficher son pseudo
+                            //On récupére l'id de l'utilisateur dans la BDD pour afficher son pseudo
+                            $req = "SELECT pseudo FROM utilisateur WHERE idUser = '$id'";
                             $requetStatement=$BDD->query($req);
                             while($Tab=$requetStatement->fetch()){
                                 echo $Tab[0];

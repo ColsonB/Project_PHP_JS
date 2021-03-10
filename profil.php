@@ -31,6 +31,14 @@
             move_uploaded_file($tmpName, $fileName);
             echo "<meta http-equiv='refresh' content='0'";
         }
+
+        if(isset($_POST['suppr_confirm'])){
+            $_FILES['img_profil']["name"] = "joueur".$id.".png";
+            $Name = $_FILES['img_profil']['name'];
+            $fileName = "src/img/joueur/".$Name;
+            unlink($fileName);
+            include('deconnexion.php');
+        }
         
 ?>
 
@@ -59,11 +67,11 @@
             <h1>Profil</h1>
             <div class="profil">
                 <img class="img_joueur" src="src/img/joueur/joueur<?php echo $id; ?>.png">
-                <div class="boutton">
+                <div class="pdp_change">
                     <form enctype="multipart/form-data" method='post'>
                         <p><input type="file" id="img_profil" name="img_profil"></p>
                         <p>Selectionnez un fichier en ".png"</p>
-                        <p><input type="submit" id="pdp_modif" name="pdp_modif" class="phpModif" value="Sauvegarder l'image"></p>
+                        <p><input type="submit" id="pdp_modif" name="pdp_modif" class="pdp_modif" value="Sauvegarder l'image"></p>
                     </form>
                 </div>
                 <div class="info_profil">
@@ -84,10 +92,10 @@
                     </tr>
                 </table>
                 <h2>Points</h2>
-                <div class="boutton">
-                    <input class="point" type="submit" id="reset_point" value="Rénitialiser les points" >
-                    <input class="point" type="submit" id="reset_confirm" value="Confirmer" >
-                    <input class="point" type="submit" id="reset_cancel" value="Annuler" >
+                <div class="reset">
+                    <input type="submit" id="reset_point" class="reset_point" value="Rénitialiser les points" >
+                    <input type="submit" id="reset_confirm" class="reset_point" value="Confirmer" >
+                    <input type="submit" id="reset_cancel" class="reset_point" value="Annuler" >
                 </div>
                 <table>
                     <tr>
@@ -101,6 +109,13 @@
                         <td><?php echo $defaite; ?></td>
                     </tr>
                 </table>
+                <div class="suppr">
+                    <form method='post'>
+                        <input type="submit" id="suppr_compte" name="suppr_compte" class="suppr_compte" value="Supprimer le compte">
+                        <input type="submit" id="suppr_confirm" name="suppr_confirm" class="suppr_compte" value="Confirmer">
+                        <input type="submit" id="suppr_cancel" name="suppr_cancel" class="suppr_compte" value="Annuler">
+                    </form>
+                </div>
             </div>
         <script type="text/javascript" src="src/js/profil.js"></script>    
     </body>
