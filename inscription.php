@@ -2,24 +2,25 @@
 
     include('BDD.php');
 
-    if(!empty($_POST)){
+    if(!empty($_POST)){ 
         extract($_POST);
         $valid = true;
-        if(isset($_POST['inscription'])){
+        if(isset($_POST['inscription'])){ // On récupére les informations du formulaire
             $idPerso = $_POST['idPerso'];
             $pseudo = $_POST['pseudo'];
             $mdp = $_POST['mdp'];
             $confmdp = $_POST['confmdp'];
 
-            $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
+            $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) 
+            VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)"; // On insére les informations du formulaire dans la BDD
             $requetStatement=$BDD->query($req);
 
-            $req = "SELECT MAX(idUser) FROM utilisateur";
+            $req = "SELECT MAX(idUser) FROM utilisateur"; // Permet de récupérer l'id le plus grand
                 $requetStatement=$BDD->query($req);                               
                 while($Tab=$requetStatement->fetch()){
                         $id = $Tab[0];
                 }
-                $_FILES['imgprof']["name"] = "joueur".$id.".png";
+                $_FILES['imgprof']["name"] = "joueur".$id.".png"; // Permet de mettre une photo de profil par défaut
                 $tmpName = "src/img/joueur/photo_de_profil.png";
                 $Name = $_FILES['imgprof']['name'];
                 $fileName = "src/img/joueur/" . $Name;
@@ -55,7 +56,7 @@
                     </select>
                 </div>
                 <?php
-                    if(isset($_POST['inscription'])){
+                    if(isset($_POST['inscription'])){ // Si le mot de passe est incorrect on envoie un message
                         if($mdp != $confmdp){
                             ?>
                                 <div class="erreur_mdp">
