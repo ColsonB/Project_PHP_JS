@@ -48,7 +48,7 @@
                         <th>Défense</th>
                     </tr>
                 <?php
-                    $req = "SELECT classe, vie, attaque, defense FROM personnage WHERE 1";
+                    $req = "SELECT classe, vie, attaque, defense FROM personnage WHERE 1"; // On récupére la table personnage dans la BDD pour l'afficher dans un tableau
                     $RequetStatement=$BDD->query($req);
                     while($Tab=$RequetStatement->fetch()){
                         ?>
@@ -76,7 +76,7 @@
                         <th>Défense</th>
                     </tr>
                 <?php
-                    $req = "SELECT nom, vie, attaque, defense FROM monstre WHERE 1 ORDER BY nom";
+                    $req = "SELECT nom, vie, attaque, defense FROM monstre WHERE 1 ORDER BY nom"; // On récupére la table monstre dans la BDD est on l'affiche dans un tableau
                     $RequetStatement=$BDD->query($req);
                     while($Tab=$RequetStatement->fetch()){
                         ?>

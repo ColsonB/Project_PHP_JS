@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
     include('../../../BDD.php');
     include('../../class/combat.php');
     $monstre = $_SESSION['idMonstre'];
-    $req = "SELECT attaque FROM combatMonstre WHERE idMonstre = '$monstre'";
+    $req = "SELECT attaque FROM combatMonstre WHERE idMonstre = '$monstre'"; // On récupére l'attaque du monstre dans la BDD
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $attaque = $Tab[0];
@@ -18,7 +18,8 @@ if (session_status() == PHP_SESSION_NONE) {
         $attaque = $coup + $attaque;
     }
     $joueur = $_SESSION['idUser'];
-    $req = "SELECT combatPerso.vie, combatPerso.defense FROM utilisateur, combatPerso WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'";
+    $req = "SELECT combatPerso.vie, combatPerso.defense FROM utilisateur, combatPerso 
+    WHERE utilisateur.idCombatPerso = combatPerso.idCombatPerso AND utilisateur.idUser = '$joueur'"; // On récupére la vie et la défense du monstre dans la BDD
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $vie = $Tab[0];
@@ -33,7 +34,7 @@ if (session_status() == PHP_SESSION_NONE) {
     if($vie < 0){
         $vie = 0;
     }
-    $req = "UPDATE combatperso SET vie = '$vie' WHERE combatperso.idCombatPerso = '$joueur'";
+    $req = "UPDATE combatperso SET vie = '$vie' WHERE combatperso.idCombatPerso = '$joueur'"; // On met à jour l'attaque dans la BDD
     $RequetStatement=$BDD->query($req);
     echo $vie;    
 ?>

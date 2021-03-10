@@ -42,9 +42,9 @@
                 <?php
                     $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
                     WHERE 
-                        utilisateur.idPerso = personnage.idPerso 
+                        utilisateur.idPerso = personnage.idPerso
                     ORDER BY 
-                        utilisateur.point DESC";
+                        utilisateur.point DESC"; // On récupére les informations de l'utilisateur dans la BDD pour les afficher dans un tableau
                     $RequetStatement=$BDD->query($req);
                     for($i=1; $Tab=$RequetStatement->fetch(); $i++){
                         ?>

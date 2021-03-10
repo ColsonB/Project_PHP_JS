@@ -18,7 +18,7 @@ if (session_status() == PHP_SESSION_NONE) {
         $attaque = $tir + $attaque;
     }
     $monstre = $_SESSION['idMonstre'];
-    $req = "SELECT vie, defense FROM combatMonstre WHERE idMonstre = '$monstre'";
+    $req = "SELECT vie, defense FROM combatMonstre WHERE idMonstre = '$monstre'"; // On met à jour la vie et la défence du monstre dans la BDD
     $RequetStatement=$BDD->query($req);
     while($Tab=$RequetStatement->fetch()){
         $vie = $Tab[0];
@@ -33,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
     if($vie < 0){
         $vie = 0;
     }
-    $req = "UPDATE combatMonstre SET vie='$vie' WHERE combatMonstre.idMonstre = '$monstre'";
+    $req = "UPDATE combatMonstre SET vie='$vie' WHERE combatMonstre.idMonstre = '$monstre'"; // On met à jour la vie du monstre dans la BDD
     $RequetStatement=$BDD->query($req);
     echo $vie;
 ?>

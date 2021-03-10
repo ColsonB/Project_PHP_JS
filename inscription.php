@@ -15,7 +15,7 @@
             VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)"; // On insére les informations du formulaire dans la BDD
             $requetStatement=$BDD->query($req);
 
-            $req = "SELECT MAX(idUser) FROM utilisateur"; // Permet de récupérer l'id le plus grand
+            $req = "SELECT MAX(idUser) FROM utilisateur"; // Permet de récupérer l'id le plus grand dans la BDD
                 $requetStatement=$BDD->query($req);                               
                 while($Tab=$requetStatement->fetch()){
                         $id = $Tab[0];
