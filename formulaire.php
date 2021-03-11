@@ -22,7 +22,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="form">
             <form action="connexion.php" method="post">
                 <?php
-                    //Si count est égale à 0 le login ou le mot de passe est invalide
+                    //Si count est égale à 0 on affiche un message d'erreur
                     if(isset($_SESSION['count'])){
                         if($_SESSION['count'] == 0){
                             ?><div class="erreur">Login ou mot de passe invalide</div><?php

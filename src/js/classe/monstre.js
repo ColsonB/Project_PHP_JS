@@ -1,3 +1,4 @@
+/*-- Attaque Monstre --*/
 for(var i=0; i<3; i++){
     document.getElementsByClassName('boutonAttaque')[i].addEventListener('click', function(){
         document.getElementById('joueur_tour').hidden = true;
@@ -6,8 +7,11 @@ for(var i=0; i<3; i++){
             document.getElementsByClassName('boutonAttaque')[i].hidden = true;
         }
         document.getElementById('monstre_chargement').hidden = false;
+
         var rand = Math.floor(Math.random() * 2);
+        //Si rand vaut 0, le monstre attaque et si rand vaut 1, il augmente son attaque
         if(rand == 0){
+            //-- Attaque Coup --//
             setTimeout(function(){
                 document.getElementById('joueur_tour').hidden = false;
                 document.getElementById('monstre_tour').hidden = true;
@@ -30,6 +34,7 @@ for(var i=0; i<3; i++){
                 document.getElementById('monstre_chargement').hidden = true;
             }, 2000);
         }else{
+            //-- Attaque Boost --//
             setTimeout(function(){
                 document.getElementById('joueur_tour').hidden = false;
                 document.getElementById('monstre_tour').hidden = true;

@@ -46,7 +46,7 @@
                         <th>Défense</th>
                     </tr>
                 <?php
-                    //On récupére la table personnage dans la BDD pour l'afficher dans un tableau
+                    //On récupère la table personnage dans la BDD pour l'afficher dans un tableau
                     $req = "SELECT classe, vie, attaque, defense FROM personnage WHERE 1";
                     $RequetStatement=$BDD->query($req);
                     while($Tab=$RequetStatement->fetch()){

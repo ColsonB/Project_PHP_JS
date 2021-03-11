@@ -1,15 +1,19 @@
 <?php
-    
-    include('BDD.php');
 
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    include('BDD.php');
     
+    //Pour accéder à la page "Profil", l'utilisateur doit être connecté sinon il est renvoyer sur la page de connexion
     if($_SESSION['connect']==true){
 
         $id = $_SESSION['idUser'];
-        $req = "SELECT utilisateur.pseudo, personnage.classe, personnage.vie, personnage.attaque, personnage.defense, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$id'";
+        //On récupère le pseudo, la classe, la vie, l'attaque, la défense, les points, les victoires et les défaites de l'utilisateur et de son personnage dans la BDD
+        $req = "SELECT utilisateur.pseudo, personnage.classe, personnage.vie, personnage.attaque, personnage.defense, utilisateur.point, utilisateur.victoire, utilisateur.defaite 
+                FROM utilisateur, personnage 
+                WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$id'";
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
             $pseudo = $Tab[0]; 
@@ -22,6 +26,7 @@
             $defaite = $Tab[7]; 
         }
 
+        //Modification de l'image de profil de l'utilisateur
         if(isset($_POST['pdp_modif'])){
             $fileType = ".".strtolower(substr(strrchr($_FILES['img_profil']["name"], '.'), 1));
             $_FILES['img_profil']["name"] = "joueur".$id.".png";
@@ -32,6 +37,7 @@
             echo "<meta http-equiv='refresh' content='0'";
         }
 
+        //Suppression de l'image de profil de l'utilisateur
         if(isset($_POST['suppr_confirm'])){
             $_FILES['img_profil']["name"] = "joueur".$id.".png";
             $Name = $_FILES['img_profil']['name'];

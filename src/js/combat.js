@@ -7,10 +7,14 @@ document.getElementById('monstre_tour').hidden = true;
 document.getElementById('monstre_chargement').hidden = true;
 document.getElementById('finAffronte').hidden = true;
 document.getElementById('end').hidden = true;
+
+//Dès que le joueur clique sur le bouton "Autre adversaire", on recharge la page pour rencontrer un autre adversaire aléatoirement 
 var adversaire = document.getElementById('adversaire');
 adversaire.addEventListener('click', function(){
     document.location.reload();
 });
+
+//Dès que le joueur clique sur le bouton "Entrer dans l'arène" le combat commence
 var start = document.getElementById('start');
 start.addEventListener('click', function() {
     document.getElementById('debutAffronte').hidden = true;
@@ -38,6 +42,8 @@ start.addEventListener('click', function() {
             console.error(error);
         }        
     }, 1000);
+
+    //Si le combat est terminé (le joueur ou le monstre n'a plus de plus de vie), le combat est terminé
     function arret(){
         clearInterval(time);
         setInterval(function(){
@@ -51,6 +57,8 @@ start.addEventListener('click', function() {
             document.getElementById('finAffronte').hidden = false;
             document.getElementById('end').hidden = false;
         });
+
+        //Dès que le joueur clique sur le bouton "Sortir de l'arène", on recharge la page pour rencontrer un autre adversaire aléatoirement 
         var end = document.getElementById('end');
         end.addEventListener('click', function(){
             document.location.reload();

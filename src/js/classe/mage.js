@@ -4,14 +4,14 @@ var sort = document.getElementById('sort');
 document.getElementById('sort_description').hidden = true;
 sort.addEventListener('click', function() {
     try{
-        fetch('src/attaque/sort.php', {
+        fetch('src/attaque/joueur/sort.php', {
             method: 'post'
         }).then(function(response){
             return response.json();        
         }).then(function (data){
             var obj = {"sort": data};
             console.log(JSON.parse(JSON.stringify(obj)))
-            document.getElementById('result').innerHTML = data;
+            document.getElementById('vie_monstre').innerHTML = data;
         })
     }catch (error){
         console.error(error);
@@ -26,6 +26,7 @@ sort.addEventListener('mouseout', function() {
 
 //-- Attaque Boost --//
 var boost = document.getElementById('boost');
+document.getElementById('boost_description').hidden = true;
 boost.addEventListener('click', function() {
     try{
         fetch('src/attaque/joueur/boost.php', {

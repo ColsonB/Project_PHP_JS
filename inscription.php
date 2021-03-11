@@ -13,18 +13,18 @@
                 $mdp = $_POST['mdp'];
                 $confmdp = $_POST['confmdp'];
                 
-                //On insére les informations du formulaire dans la BDD
+                //On créer un nouvel utilisateur avec les informations du formulaire dans la BDD
                 $req = "INSERT INTO `utilisateur`(`idPerso`, `idCombatPerso`, `pseudo`, `mdp`, `point`, `victoire`, `defaite`) VALUES ($idPerso, $idPerso, '$pseudo', '$mdp', 0, 0, 0)";
                 $requetStatement=$BDD->query($req);
 
-                //Permet de récupérer l'id le plus grand dans la BDD
+                //Permet de récupérer le dernier idUser dans la BDD
                 $req = "SELECT MAX(idUser) FROM utilisateur";
                 $requetStatement=$BDD->query($req);                               
                 while($Tab=$requetStatement->fetch()){
                         $id = $Tab[0];
                 }
 
-                // Permet de mettre une photo de profil par défaut
+                //Permet de mettre une photo de profil par défaut
                 $_FILES['imgprof']["name"] = "joueur".$id.".png";
                 $tmpName = "src/img/joueur/photo_de_profil.png";
                 $Name = $_FILES['imgprof']['name'];
@@ -62,7 +62,7 @@
                 </div>
                 <?php
                     if(isset($_POST['inscription'])){
-                        //Si le mot de passe est incorrect on envoie un message
+                        //Si le mot de passe est incorrect on envoie un message d'erreur
                         if($mdp != $confmdp){
                             ?>
                                 <div class="erreur_mdp">

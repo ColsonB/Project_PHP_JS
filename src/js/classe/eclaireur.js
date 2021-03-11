@@ -4,14 +4,14 @@ var tir = document.getElementById('tir');
 document.getElementById('tir_description').hidden = true;
 tir.addEventListener('click', function() {
     try{
-        fetch('src/attaque/tir.php', {
+        fetch('src/attaque/joueur/tir.php', {
             method: 'post'
         }).then(function(response){
             return response.json();        
         }).then(function (data){
             var obj = {"tir": data};
             console.log(JSON.parse(JSON.stringify(obj)))
-            document.getElementById('result').innerHTML = data;
+            document.getElementById('vie_monstre').innerHTML = data;
         })
     }catch (error){
         console.error(error);

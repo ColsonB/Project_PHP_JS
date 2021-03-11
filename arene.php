@@ -1,16 +1,18 @@
 <?php
+    
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     include('BDD.php');
     include('src/class/personnage.php');
     include('src/class/combat.php');
     
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    
+    //Pour accéder à la page "Arène", l'utilisateur doit être connecté sinon il est renvoyer sur la page de connexion
     if($_SESSION['connect']==true){
 
         $joueur = $_SESSION['idUser'];
+        //On récupère la vie, l'attaque et la défense du personnage dans la BDD
         $req = "SELECT personnage.vie, personnage.attaque, personnage.defense FROM utilisateur, personnage WHERE utilisateur.idPerso = personnage.idPerso AND utilisateur.idUser = '$joueur'";
         $RequetStatement=$BDD->query($req);
        
@@ -20,9 +22,11 @@
             $defense_joueur = $Tab[2]; 
         }
 
-        $req = "UPDATE combatPerso SET vie='$vie_joueur', attaque='$attaque_joueur', defense='$defense_joueur' WHERE combatPerso.idCombatPerso = '$joueur'";
+        //On met à jour la vie, l'attaque et la défense du joueur dans la BDD
+        $req = "UPDATE combatperso SET vie='$vie_joueur', attaque='$attaque_joueur', defense='$defense_joueur' WHERE combatperso.idCombatPerso = '$joueur'";
         $RequetStatement=$BDD->query($req);
 
+        //On récupère le pseudo, la classe, la vie, l'attaque et la défense du joueur dans la BDD
         $req = "SELECT utilisateur.pseudo, combatperso.classe, combatperso.vie, combatperso.attaque, combatperso.defense FROM utilisateur, combatperso WHERE utilisateur.idCombatPerso = combatperso.idCombatPerso AND utilisateur.idUser = '$joueur'";       
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
@@ -31,11 +35,13 @@
             $_SESSION['vie_joueur'] = $Tab[2]; 
             $_SESSION['attaque_joueur'] = $Tab[3]; 
             $_SESSION['defense_joueur'] = $Tab[4];
+            //On appelle l'objet Personnage
             $joueur = new Personnage($Tab[0], $Tab[1], $Tab[2], $Tab[3], $Tab[4]);
         }
 
-        $monstre = rand(1, 8);
+        $monstre = rand(1, 11);
         $_SESSION['idMonstre'] = $monstre;
+        //On récupère la vie, l'attaque et la défense du monstre dans la BDD
         $req = "SELECT monstre.vie, monstre.attaque, monstre.defense FROM monstre WHERE monstre.idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
@@ -43,9 +49,12 @@
             $attaque_monstre = $Tab[1]; 
             $defense_monstre = $Tab[2];
         }
-        $req = "UPDATE combatMonstre SET vie='$vie_monstre', attaque='$attaque_monstre', defense='$defense_monstre' WHERE combatMonstre.idMonstre = '$monstre'";
+
+        //On met à jour la vie, l'attaque et la défense du monstre dans la BDD
+        $req = "UPDATE combatmonstre SET vie='$vie_monstre', attaque='$attaque_monstre', defense='$defense_monstre' WHERE combatmonstre.idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
 
+        //On récupère le nom, la classe, la vie, l'attaque et la défense du monstre dans la BDD
         $req = "SELECT nom, classe, vie, attaque, defense FROM combatmonstre WHERE idMonstre = '$monstre'";
         $RequetStatement=$BDD->query($req);
         while($Tab=$RequetStatement->fetch()){
@@ -54,9 +63,11 @@
             $_SESSION['vie_monstre'] = $Tab[2]; 
             $_SESSION['attaque_monstre'] = $Tab[3]; 
             $_SESSION['defense_monstre'] = $Tab[4];
+            //On appelle l'objet Personnage
             $monstre = new Personnage($Tab[0], $Tab[1], $Tab[2], $Tab[3], $Tab[4]);
         }
 
+        //Fonction pour les attaques du joueur en fonction de sa classe
         function attaque($joueur){
             if($joueur->classe()=='Guerrier'){
                 ?>                    
@@ -147,7 +158,7 @@
             <h1>Arène</h1>
             <div class="message">
                 <h2 id="debutAffronte">Voulez-vous affronter le Monstre <?php echo $monstre->nom(); ?> ?</h2>
-                <input type="submit" id="start" value="Commencer le combat">
+                <input type="submit" id="start" value="Entrer dans l'arène">
                 <input type="submit" id="adversaire" value="Autre adversaire">
                 <h2 id="versus"><?php echo $joueur->nom(); ?> contre <?php echo $monstre->nom(); ?></h2>
                 <p id="joueur_tour">C'est au Joueur <?php echo $joueur->nom(); ?> de jouer</p>
@@ -193,6 +204,7 @@
             </div>
             <div class="attaque">
                 <?php
+                    //On appelle la fonction "attaque"
                     attaque($joueur);
                 ?>
                 <p id="monstre_chargement">En attente de la fin du tour de Monstre <?php echo $monstre->nom(); ?>...</p>

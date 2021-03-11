@@ -38,7 +38,7 @@
                         <th>Défaite</th>
                     </tr>
                     <?php
-                        //On récupére les informations de l'utilisateur dans la BDD pour les afficher dans un tableau
+                        //On récupére les informations de l'utilisateur et de son personnage dans la BDD pour les afficher dans un tableau
                         $req = "SELECT utilisateur.pseudo, personnage.classe, utilisateur.point, utilisateur.victoire, utilisateur.defaite FROM utilisateur, personnage 
                         WHERE 
                             utilisateur.idPerso = personnage.idPerso 
