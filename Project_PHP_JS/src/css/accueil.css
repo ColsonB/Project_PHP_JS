@@ -1,0 +1,58 @@
+h2{
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p{
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table{
+    position: relative;
+    width: 60%;
+    border: 1px solid;
+    border-color: white;
+    border-collapse: collapse;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table th{
+    font-size: bold;
+    border: 1px solid;
+    border-color: white;
+    border-collapse: collapse;
+}
+
+table td{
+    text-align: center;
+    width: 15%;
+    border: 1px solid;
+    border-color: white;
+}
+
+.regle, .hero, .bestiaire{
+    position: relative;
+    background-color: #2F3136;
+    border: 1px solid;
+    border-color: #202225;
+    border-radius: 5px;
+    width: 70%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 800px) {
+    .regle, .hero, .bestiaire{
+        width: 90%;
+    }
+}
